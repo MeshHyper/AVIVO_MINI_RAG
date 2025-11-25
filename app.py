@@ -40,7 +40,7 @@ async def cancel_fallback(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 def main():
-    app = ApplicationBuilder().token("8078660648:AAGvZpLDm19QlhOUihxndIPY0L85J_gdrNc").build()
+    app = ApplicationBuilder().token("ADD_your_code").build()
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("help", help_command))
     app.add_handler(CommandHandler("ask", ask))
