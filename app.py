@@ -1,6 +1,11 @@
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, ConversationHandler
 from src.generator import generator   
+import configparser
+
+config = configparser.ConfigParser()
+config.read('config.ini')
+telegrambot_api = config['API']['TELEGRAM_API']
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
@@ -11,9 +16,9 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
         "Available commands:\n"
-        "/ask <question> – Ask the RAG engine\n"
-        "/image – Upload an image for description\n"
-        "/help – Show usage instructions"
+        "/ask <question> - Ask the RAG engine\n"
+        "/image - Upload an image for description\n"
+        "/help - Show usage instructions"
     )
 
 
@@ -40,11 +45,10 @@ async def cancel_fallback(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 def main():
-    app = ApplicationBuilder().token("ADD_your_code").build()
+    app = ApplicationBuilder().token(telegrambot_api).build()
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("help", help_command))
     app.add_handler(CommandHandler("ask", ask))
-
     app.run_polling()
 
 
